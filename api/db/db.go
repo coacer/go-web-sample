@@ -1,6 +1,7 @@
 package db
 
 import (
+	"github.com/coacer/go-web-sample/api/model/entity"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -15,6 +16,8 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
+
+	autoMigration()
 }
 
 func GetDB() *gorm.DB {
@@ -25,4 +28,8 @@ func Close() {
 	if err := db.Close(); err != nil {
 		panic(err)
 	}
+}
+
+func autoMigration() {
+	db.AutoMigrate(&entity.Post{})
 }
