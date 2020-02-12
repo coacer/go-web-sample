@@ -33,7 +33,7 @@ func (pc Controller) Create(c *gin.Context) {
 	}
 }
 
-func (pc Controller) Show(c gin.Context) {
+func (pc Controller) Show(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var s service.Post
 	p, err := s.GetByID(id)
@@ -59,7 +59,7 @@ func (pc Controller) Update(c *gin.Context) {
 	}
 }
 
-func (s Service) Delete(c *gin.Context) {
+func (pc Controller) Delete(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var s service.Post
 
