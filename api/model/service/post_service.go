@@ -14,7 +14,7 @@ func (s Service) GetAll() ([]Post, error) {
 	db := db.GetDB()
 	var p []Post
 
-	if err := db.find(&p).Error; err != nil {
+	if err := db.Find(&p).Error; err != nil {
 		return nil, err
 	}
 
@@ -36,7 +36,7 @@ func (s Service) CreateModel(c *gin.Context) (Post, error) {
 	return p, nil
 }
 
-func (s Service) GetById(id string) (Post, error) {
+func (s Service) GetByID(id string) (Post, error) {
 	db := db.GetDB()
 	var p Post
 
@@ -67,7 +67,7 @@ func (s Service) DeleteByID(id string) error {
 	var p Post
 
 	if err := db.Where("id = ?", id).Delete(&p).Error; err != nil {
-		return p, err
+		return err
 	}
 
 	return nil
