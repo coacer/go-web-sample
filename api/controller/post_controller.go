@@ -1,0 +1,72 @@
+package controller
+
+import (
+	"fmt"
+
+	"github.com/coacer/go-web-sample/api/model/service"
+	"github.com/gin-gonic/gin"
+)
+
+type Controller struct{}
+
+func (pc Controller) Index(c *gin.Context) {
+	var s service.Post
+	p, err := s.GetAll()
+
+	if err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.JSON(200, p)
+	}
+}
+
+func (pc Controller) Create(c *gin.Context) {
+	var s service.Post
+	p, err := s.CreateModel(c)
+
+	if err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.JSON(201, p)
+	}
+}
+
+func (pc Controller) Show(c gin.Context) {
+	id := c.Params.ByName("id")
+	var s service.Post
+	p, err := s.GetByID(id)
+
+	if err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.JSON(200, p)
+	}
+}
+
+func (pc Controller) Update(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var s service.Post
+	p, err := s.UpdateByID(id, c)
+
+	if err != nil {
+		c.AbortWithStatus(400)
+		fmt.Println(err)
+	} else {
+		c.JSON(200, p)
+	}
+}
+
+func (s Service) Delete(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var s service.Post
+
+	if err := s.DeleteByID(id); err != nil {
+		c.AbortWithStatus(403)
+		fmt.Println(err)
+	} else {
+		c.JSON(204, gin.H{"id #" + id: "deleted"})
+	}
+}
