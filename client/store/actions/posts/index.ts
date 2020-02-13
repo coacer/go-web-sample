@@ -1,6 +1,6 @@
 import { Post } from '../../../interfaces';
 
-enum ActionType {
+export enum ActionType {
    RELOAD_POST_ALL = 'RELOAD_POST_ALL',
    ADD_POST = 'ADD_POST',
    UPDATE_POST = 'UPDATE_POST',
@@ -15,6 +15,7 @@ interface ReloadPostAllAction {
 interface AddPostAction {
   type: ActionType.ADD_POST,
   payload: {
+    id: number,
     title: string,
     body: string,
   },
@@ -23,6 +24,7 @@ interface AddPostAction {
 interface UpdatePostAction {
   type: ActionType.UPDATE_POST,
   payload: {
+    id: number,
     title: string,
     body: string,
   },
@@ -32,6 +34,12 @@ interface DeletePostAction {
   type: ActionType.DELETE_POST,
   payload: { id: number },
 }
+
+export type PostAction =
+  | ReloadPostAllAction
+  | AddPostAction
+  | UpdatePostAction
+  | DeletePostAction
 
 export const reloadPost = (posts: Post[]): ReloadPostAllAction => {
   return {
