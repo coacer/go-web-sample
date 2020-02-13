@@ -1,28 +1,17 @@
-import { useRef, FormEvent } from 'react';
-import axios from 'axios';
+import { FormEvent } from 'react';
 
-const PostForm = (): JSX.Element => {
-  const newTitleInput = useRef(null);
-  const newBodyInput = useRef(null);
+interface Props {
+  onSubmit: (e: FormEvent) => void
+}
 
-  const handleSubmit = (e: FormEvent): void => {
-    e.preventDefault();
-    const title = newTitleInput.current.value;
-    const body = newBodyInput.current.value;
-    axios.post('http://localhost:8080/posts', {
-      title,
-      body,
-    });
-    newTitleInput.current.value = '';
-    newBodyInput.current.value = '';
-  }
+const PostForm: React.FC<Props> = ({ onSubmit }) => {
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <label htmlFor="title">Title</label>
-      <input ref={newTitleInput} id="title" type="text" /><br/>
+      <input name="title" id="title" type="text" /><br/>
       <label htmlFor="body">Body</label>
-      <input ref={newBodyInput} id="body" type="text" /><br/>
+      <input name="body" id="body" type="text" /><br/>
       <input type="submit" value="投稿"/>
     </form>
   );

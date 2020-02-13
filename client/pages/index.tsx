@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import axios from 'axios';
 import PostForm from '../components/PostForm';
 
@@ -17,6 +17,26 @@ const Index = (): JSX.Element => {
     getPosts();
   }, []);
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const body = e.target.body.value;
+    axios.post('http://localhost:8080/posts', {
+      title,
+      body,
+    })
+      .then(res => {
+        setPosts(posts => (
+          [...posts, res.data]
+        ));
+      })
+      .catch(e => {
+        console.log(e.message);
+      });
+    e.target.title.value = '';
+    e.target.body.value = '';
+  }
+
   return (
       <>
         {posts.map(post => (
@@ -26,7 +46,7 @@ const Index = (): JSX.Element => {
             <div>{post.body}</div>
           </div>
         ))}
-        <PostForm />
+        <PostForm onSubmit={handleSubmit} />
       </>
   );
 }
