@@ -59,6 +59,8 @@ func (s Service) UpdateByID(id string, c *gin.Context) (Post, error) {
 		return p, err
 	}
 
+	db.Save(&p)
+
 	return p, nil
 }
 

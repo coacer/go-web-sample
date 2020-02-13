@@ -10,7 +10,7 @@ import (
 type Controller struct{}
 
 func (pc Controller) Index(c *gin.Context) {
-	var s service.Post
+	var s service.Service
 	p, err := s.GetAll()
 
 	if err != nil {
@@ -22,7 +22,7 @@ func (pc Controller) Index(c *gin.Context) {
 }
 
 func (pc Controller) Create(c *gin.Context) {
-	var s service.Post
+	var s service.Service
 	p, err := s.CreateModel(c)
 
 	if err != nil {
@@ -35,7 +35,7 @@ func (pc Controller) Create(c *gin.Context) {
 
 func (pc Controller) Show(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var s service.Post
+	var s service.Service
 	p, err := s.GetByID(id)
 
 	if err != nil {
@@ -48,7 +48,7 @@ func (pc Controller) Show(c *gin.Context) {
 
 func (pc Controller) Update(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var s service.Post
+	var s service.Service
 	p, err := s.UpdateByID(id, c)
 
 	if err != nil {
@@ -61,7 +61,7 @@ func (pc Controller) Update(c *gin.Context) {
 
 func (pc Controller) Delete(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var s service.Post
+	var s service.Service
 
 	if err := s.DeleteByID(id); err != nil {
 		c.AbortWithStatus(403)
