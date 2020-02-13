@@ -13,6 +13,15 @@ services:
     tty: true
     command: go run main.go
 
+  client:
+    build: ./client
+    volumes:
+      - ./client:/app
+    ports:
+      - 3000:3000
+    tty: true
+    command: npm run dev
+
   db:
     image: mysql:5.7
     environment:
