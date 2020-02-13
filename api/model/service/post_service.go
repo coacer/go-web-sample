@@ -1,6 +1,8 @@
 package service
 
 import (
+	"fmt"
+
 	"github.com/coacer/go-web-sample/api/db"
 	"github.com/coacer/go-web-sample/api/model/entity"
 	"github.com/gin-gonic/gin"
@@ -28,6 +30,7 @@ func (s Service) CreateModel(c *gin.Context) (Post, error) {
 	if err := c.BindJSON(&p); err != nil {
 		return p, err
 	}
+	fmt.Println("-------", p.Title)
 
 	if err := db.Create(&p).Error; err != nil {
 		return p, err

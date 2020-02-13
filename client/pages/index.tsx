@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import PostForm from '../components/PostForm';
 
 const Index = (): JSX.Element => {
   const [posts, setPosts] = useState([]);
@@ -25,6 +26,7 @@ const Index = (): JSX.Element => {
             <div>{post.body}</div>
           </div>
         ))}
+        <PostForm />
       </>
   );
 }

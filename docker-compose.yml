@@ -23,7 +23,7 @@ services:
     command: npm run dev
 
   db:
-    image: mysql:5.7
+    build: ./db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: go-web-sample
