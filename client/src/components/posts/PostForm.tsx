@@ -1,6 +1,9 @@
 import React, { FormEvent, useState, ChangeEvent, Dispatch } from 'react';
 import { addPost, PostAction } from '../../store/actions/posts';
 import { addPostAPI } from '../../api/posts';
+import { TextField, Button } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
+import styled from 'styled-components';
 
 interface Props {
   dispatch: Dispatch<PostAction>;
@@ -15,36 +18,46 @@ const PostForm: React.FC<Props> = ({ dispatch, handleClose }: Props) => {
     e.preventDefault();
     const post = await addPostAPI({ title, body });
     dispatch(addPost(post));
-    setTitle('');
-    setBody('');
     handleClose();
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="title">Title</label>
-      <input
+      <TextField
+        id="standard-basic"
+        label="Title"
+        fullWidth
         onChange={(e: ChangeEvent<HTMLInputElement>): void =>
           setTitle(e.target.value)
         }
-        value={title}
-        id="title"
-        type="text"
       />
       <br />
-      <label htmlFor="body">Body</label>
-      <input
+      <TextField
+        id="standard-basic"
+        label="Body"
+        fullWidth
         onChange={(e: ChangeEvent<HTMLInputElement>): void =>
           setBody(e.target.value)
         }
-        value={body}
-        id="body"
-        type="text"
       />
-      <br />
-      <input type="submit" value="投稿" />
+      <RightFlex>
+        <Button
+          size="large"
+          endIcon={<Icon>send</Icon>}
+          type="submit"
+          color="primary"
+        >
+          Send
+        </Button>
+      </RightFlex>
     </form>
   );
 };
+
+const RightFlex = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+`;
 
 export default PostForm;
