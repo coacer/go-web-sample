@@ -1,8 +1,9 @@
 import { useEffect, useReducer } from 'react';
-import PostForm from '../components/PostForm';
+import PostForm from '../components/posts/PostForm';
 import reducer from '../store/reducers/posts';
 import { fetchPostAPI } from '../api/posts';
 import { reloadPost } from '../store/actions/posts';
+import PostList from '../components/posts/PostList';
 
 const Index = (): JSX.Element => {
   const [posts, dispatch] = useReducer(reducer, []);
@@ -16,13 +17,7 @@ const Index = (): JSX.Element => {
 
   return (
     <>
-      {posts.map(post => (
-        <div key={post.id}>
-          <div>{post.id}</div>
-          <div>{post.title}</div>
-          <div>{post.body}</div>
-        </div>
-      ))}
+      <PostList posts={posts} />
       <PostForm dispatch={dispatch} />
     </>
   );

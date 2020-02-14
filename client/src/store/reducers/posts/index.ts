@@ -12,7 +12,7 @@ const reducer = (state = initialState, action: PostAction): Post[] => {
     case ActionType.UPDATE_POST:
       return [...state, action.payload];
     case ActionType.DELETE_POST:
-      state = state.filter(todo => todo.id !== action.payload.id);
+      state = state.filter(post => post.id !== action.payload.id);
       return state;
   }
 };

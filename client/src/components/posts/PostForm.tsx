@@ -1,6 +1,6 @@
 import { FormEvent, useState, ChangeEvent, Dispatch } from 'react';
-import { addPost, PostAction } from '../store/actions/posts';
-import { addPostAPI } from '../api/posts';
+import { addPost, PostAction } from '../../store/actions/posts';
+import { addPostAPI } from '../../api/posts';
 
 interface Props {
   dispatch: Dispatch<PostAction>;
