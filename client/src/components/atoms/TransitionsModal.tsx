@@ -5,6 +5,9 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
 interface Props {
+  open: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
   btn: JSX.Element;
   show: JSX.Element;
 }
@@ -27,17 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TransitionsModal: React.FC<Props> = ({ btn, show }: Props) => {
+const TransitionsModal: React.FC<Props> = ({
+  open,
+  handleOpen,
+  handleClose,
+  btn,
+  show,
+}: Props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = (): void => {
-    setOpen(true);
-  };
-
-  const handleClose = (): void => {
-    setOpen(false);
-  };
 
   return (
     <div>

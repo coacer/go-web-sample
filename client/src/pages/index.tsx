@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 import { useEffect, useReducer } from 'react';
@@ -12,6 +12,15 @@ import TransitionsModal from '../components/atoms/TransitionsModal';
 
 const Index = (): JSX.Element => {
   const [posts, dispatch] = useReducer(reducer, []);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpen = (): void => {
+    setOpenModal(true);
+  };
+
+  const handleClose = (): void => {
+    setOpenModal(false);
+  };
 
   useEffect(() => {
     (async (): Promise<void> => {
@@ -29,6 +38,9 @@ const Index = (): JSX.Element => {
         />
       </Head>
       <TransitionsModal
+        open={openModal}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
         btn={
           <BtnWrapper>
             <IconBtn size={50} icon="add_circle" />
