@@ -1,45 +1,45 @@
 import { Post } from '../../../interfaces';
 
 export enum ActionType {
-   RELOAD_POST_ALL = 'RELOAD_POST_ALL',
-   ADD_POST = 'ADD_POST',
-   UPDATE_POST = 'UPDATE_POST',
-   DELETE_POST = 'DELETE_POST',
+  RELOAD_POST_ALL = 'RELOAD_POST_ALL',
+  ADD_POST = 'ADD_POST',
+  UPDATE_POST = 'UPDATE_POST',
+  DELETE_POST = 'DELETE_POST',
 }
 
 interface ReloadPostAllAction {
-  type: ActionType.RELOAD_POST_ALL,
-  payload: Post[],
+  type: ActionType.RELOAD_POST_ALL;
+  payload: Post[];
 }
 
 interface AddPostAction {
-  type: ActionType.ADD_POST,
+  type: ActionType.ADD_POST;
   payload: {
-    id: number,
-    title: string,
-    body: string,
-  },
+    id: number;
+    title: string;
+    body: string;
+  };
 }
 
 interface UpdatePostAction {
-  type: ActionType.UPDATE_POST,
+  type: ActionType.UPDATE_POST;
   payload: {
-    id: number,
-    title: string,
-    body: string,
-  },
+    id: number;
+    title: string;
+    body: string;
+  };
 }
 
 interface DeletePostAction {
-  type: ActionType.DELETE_POST,
-  payload: { id: number },
+  type: ActionType.DELETE_POST;
+  payload: { id: number };
 }
 
 export type PostAction =
   | ReloadPostAllAction
   | AddPostAction
   | UpdatePostAction
-  | DeletePostAction
+  | DeletePostAction;
 
 export const reloadPost = (posts: Post[]): ReloadPostAllAction => {
   return {
@@ -68,5 +68,3 @@ export const deletePost = (id: number): DeletePostAction => {
     payload: { id },
   };
 };
-
-
