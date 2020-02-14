@@ -1,12 +1,14 @@
 import React from 'react';
 import Head from 'next/head';
+import styled from 'styled-components';
 import { useEffect, useReducer } from 'react';
 import PostForm from '../components/posts/PostForm';
 import reducer from '../store/reducers/posts';
 import { fetchPostAPI } from '../api/posts';
 import { reloadPost } from '../store/actions/posts';
 import PostList from '../components/posts/PostList';
-import NewPostButton from '../components/posts/NewPostButton';
+import IconBtn from '../components/atoms/IconBtn';
+import TransitionsModal from '../components/atoms/TransitionsModal';
 
 const Index = (): JSX.Element => {
   const [posts, dispatch] = useReducer(reducer, []);
@@ -26,11 +28,32 @@ const Index = (): JSX.Element => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </Head>
-      <NewPostButton onClick={() => console.log('click!')} />
+      <TransitionsModal
+        btn={
+          <BtnWrapper>
+            <IconBtn size={50} icon="add_circle" />
+          </BtnWrapper>
+        }
+        show={
+          <FormWrapper>
+            <h2>New Post</h2>
+            <PostForm dispatch={dispatch} />
+          </FormWrapper>
+        }
+      />
       <PostList posts={posts} />
-      <PostForm dispatch={dispatch} />
     </>
   );
 };
+
+const BtnWrapper = styled.div`
+  position: fixed;
+  top: 50px;
+  left: 50px;
+`;
+
+const FormWrapper = styled.div`
+  padding: 30px;
+`;
 
 export default Index;

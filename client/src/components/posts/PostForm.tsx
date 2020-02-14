@@ -1,4 +1,4 @@
-import { FormEvent, useState, ChangeEvent, Dispatch } from 'react';
+import React, { FormEvent, useState, ChangeEvent, Dispatch } from 'react';
 import { addPost, PostAction } from '../../store/actions/posts';
 import { addPostAPI } from '../../api/posts';
 
@@ -6,7 +6,7 @@ interface Props {
   dispatch: Dispatch<PostAction>;
 }
 
-const PostForm: React.FC<Props> = ({ dispatch }) => {
+const PostForm: React.FC<Props> = ({ dispatch }: Props) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
