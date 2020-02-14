@@ -4,9 +4,10 @@ import { addPostAPI } from '../../api/posts';
 
 interface Props {
   dispatch: Dispatch<PostAction>;
+  handleClose: () => void;
 }
 
-const PostForm: React.FC<Props> = ({ dispatch }: Props) => {
+const PostForm: React.FC<Props> = ({ dispatch, handleClose }: Props) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
@@ -16,6 +17,7 @@ const PostForm: React.FC<Props> = ({ dispatch }: Props) => {
     dispatch(addPost(post));
     setTitle('');
     setBody('');
+    handleClose();
   };
 
   return (

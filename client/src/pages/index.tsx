@@ -46,10 +46,10 @@ const Index = (): JSX.Element => {
             <IconBtn size={50} icon="add_circle" />
           </BtnWrapper>
         }
-        show={
+        showWindow={
           <FormWrapper>
             <h2>New Post</h2>
-            <PostForm dispatch={dispatch} />
+            <PostForm dispatch={dispatch} handleClose={handleClose} />
           </FormWrapper>
         }
       />

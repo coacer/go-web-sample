@@ -9,7 +9,7 @@ interface Props {
   handleOpen: () => void;
   handleClose: () => void;
   btn: JSX.Element;
-  show: JSX.Element;
+  showWindow: JSX.Element;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,7 +35,7 @@ const TransitionsModal: React.FC<Props> = ({
   handleOpen,
   handleClose,
   btn,
-  show,
+  showWindow: show,
 }: Props) => {
   const classes = useStyles();
 
