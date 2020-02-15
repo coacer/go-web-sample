@@ -1,16 +1,17 @@
-import React, { FormEvent, useState, ChangeEvent, Dispatch } from 'react';
-import { addPost, PostAction } from '../../store/actions/posts';
+import React, { useContext, useState, FormEvent, ChangeEvent } from 'react';
+import AppContext from '../../contexts';
+import { addPost } from '../../store/actions/posts';
 import { addPostAPI } from '../../api/posts';
 import { TextField, Button } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import styled from 'styled-components';
 
 interface Props {
-  dispatch: Dispatch<PostAction>;
   handleClose: () => void;
 }
 
-const PostForm: React.FC<Props> = ({ dispatch, handleClose }: Props) => {
+const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
+  const { dispatch } = useContext(AppContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 

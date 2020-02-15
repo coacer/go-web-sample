@@ -2,6 +2,9 @@ import React from 'react';
 import { Post } from '../../interfaces';
 import SimpleCard from '../atoms/SimpleCard';
 import styled from 'styled-components';
+import { IconButton } from '@material-ui/core';
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
+// import { deletePost } from '../../store/actions/posts';
 
 interface Props {
   post: Post;
@@ -10,9 +13,23 @@ interface Props {
 export type PostListItemProps = Props;
 
 const PostListItem: React.FC<Props> = ({ post }: Props) => {
+  // const handleClick = (id: number): void => {
+  //   deletePostAPI(id)
+  //     .then(res => dispatch(deletePost(id)))
+  //     .catch(e => console.log(e.message));
+  // };
+
   return (
     <Wrapper key={post.id}>
-      <SimpleCard title={post.title} body={post.body} />
+      <SimpleCard
+        title={post.title}
+        body={post.body}
+        rightBtn={
+          <IconButton>
+            <DeleteRoundedIcon color="secondary" fontSize="large" />
+          </IconButton>
+        }
+      />
     </Wrapper>
   );
 };

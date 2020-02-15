@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
-import { useEffect, useReducer } from 'react';
+import AppContext from '../contexts';
 import PostForm from '../components/posts/PostForm';
 import reducer from '../store/reducers/posts';
 import { fetchPostAPI } from '../api/posts';
@@ -37,23 +37,25 @@ const Index = (): JSX.Element => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </Head>
-      <TransitionsModal
-        open={openModal}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
-        btn={
-          <BtnWrapper>
-            <IconBtn size={50} icon="add_circle" />
-          </BtnWrapper>
-        }
-        showWindow={
-          <FormWrapper>
-            <h2>New Post</h2>
-            <PostForm dispatch={dispatch} handleClose={handleClose} />
-          </FormWrapper>
-        }
-      />
-      <PostList posts={posts} />
+      <AppContext.Provider value={{ posts, dispatch }}>
+        <TransitionsModal
+          open={openModal}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          btn={
+            <BtnWrapper>
+              <IconBtn size={50} icon="add_circle" />
+            </BtnWrapper>
+          }
+          showWindow={
+            <FormWrapper>
+              <h2>New Post</h2>
+              <PostForm handleClose={handleClose} />
+            </FormWrapper>
+          }
+        />
+        <PostList posts={posts} />
+      </AppContext.Provider>
     </>
   );
 };
