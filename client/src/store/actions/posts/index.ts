@@ -14,20 +14,12 @@ interface ReloadPostAllAction {
 
 interface AddPostAction {
   type: ActionType.ADD_POST;
-  payload: {
-    id: number;
-    title: string;
-    body: string;
-  };
+  payload: Post;
 }
 
 interface UpdatePostAction {
   type: ActionType.UPDATE_POST;
-  payload: {
-    id: number;
-    title: string;
-    body: string;
-  };
+  payload: Post;
 }
 
 interface DeletePostAction {
