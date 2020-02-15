@@ -26,7 +26,7 @@ const PostListItem: React.FC<Props> = ({ post }: Props) => {
   const handleClick = (id: number): void => {
     deletePostAPI(id)
       .then(res => dispatch(deletePost(id)))
-      .catch(e => console.log(e.message));
+      .catch(e => console.log(e));
   };
 
   return (

@@ -24,8 +24,12 @@ const Index = (): JSX.Element => {
 
   useEffect(() => {
     (async (): Promise<void> => {
-      const data = await fetchPostAPI();
-      dispatch(reloadPost(data));
+      try {
+        const data = await fetchPostAPI();
+        dispatch(reloadPost(data));
+      } catch (e) {
+        console.log(e);
+      }
     })();
   }, [fetchPostAPI, dispatch, reloadPost]);
 

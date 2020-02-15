@@ -16,10 +16,14 @@ const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
   const [body, setBody] = useState('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-    const post = await addPostAPI({ title, body });
-    dispatch(addPost(post));
-    handleClose();
+    try {
+      e.preventDefault();
+      const post = await addPostAPI({ title, body });
+      dispatch(addPost(post));
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
