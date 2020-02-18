@@ -5,7 +5,7 @@ services:
     build: ./api
     volumes:
       - ./api:/go/src/github.com/coacer/go-web-sample/api
-      - lib:/go/src/github.com
+      - api-lib:/go/src/github.com
     ports:
       - 8080:8080
     depends_on:
@@ -17,6 +17,8 @@ services:
     build: ./client
     volumes:
       - ./client:/app
+      - client-lib:/app/node_modules
+      - /app/.next
     ports:
       - 3000:3000
     tty: true
@@ -33,5 +35,6 @@ services:
       - db-data:/var/lib/mysql
 
 volumes:
-  lib:
+  api-lib:
+  client-lib:
   db-data:
