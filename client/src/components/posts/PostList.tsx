@@ -1,16 +1,12 @@
-import React from 'react';
-import { Post } from '../../interfaces';
+import React, { useContext } from 'react';
 import PostListItem from './PostListItem';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
+import AppContext from '../../contexts';
 
-interface Props {
-  posts: Post[];
-}
+const PostList: React.FC = () => {
+  const { posts } = useContext(AppContext);
 
-export type PostListProps = Props;
-
-const PostList: React.FC<Props> = ({ posts }: Props) => {
   return (
     <FadeWrapper>
       {posts.map(post => (

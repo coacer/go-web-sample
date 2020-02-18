@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import Head from 'next/head';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import AppContext from '../contexts';
+import WithLayout from '../components/templates/Layout';
 import PostForm from '../components/posts/PostForm';
-import reducer from '../store/reducers/posts';
+import AppContext from '../contexts';
 import { fetchPostAPI } from '../api/posts';
 import { reloadPost } from '../store/actions/posts';
 import PostList from '../components/posts/PostList';
@@ -11,7 +10,7 @@ import IconBtn from '../components/atoms/IconBtn';
 import TransitionsModal from '../components/atoms/TransitionsModal';
 
 const Index = (): JSX.Element => {
-  const [posts, dispatch] = useReducer(reducer, []);
+  const { dispatch } = useContext(AppContext);
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = (): void => {
@@ -35,31 +34,23 @@ const Index = (): JSX.Element => {
 
   return (
     <>
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-      </Head>
-      <AppContext.Provider value={{ posts, dispatch }}>
-        <TransitionsModal
-          open={openModal}
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-          btn={
-            <BtnWrapper>
-              <IconBtn size={50} icon="add_circle" />
-            </BtnWrapper>
-          }
-          showWindow={
-            <FormWrapper>
-              <h2>New Post</h2>
-              <PostForm handleClose={handleClose} />
-            </FormWrapper>
-          }
-        />
-        <PostList posts={posts} />
-      </AppContext.Provider>
+      <TransitionsModal
+        open={openModal}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        btn={
+          <BtnWrapper>
+            <IconBtn size={50} icon="add_circle" />
+          </BtnWrapper>
+        }
+        showWindow={
+          <FormWrapper>
+            <h2>New Post</h2>
+            <PostForm handleClose={handleClose} />
+          </FormWrapper>
+        }
+      />
+      <PostList />
     </>
   );
 };
@@ -74,4 +65,4 @@ const FormWrapper = styled.div`
   padding: 30px;
 `;
 
-export default Index;
+export default WithLayout(Index);
