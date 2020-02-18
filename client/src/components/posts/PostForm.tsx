@@ -14,6 +14,20 @@ const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
   const { dispatch } = useContext(AppContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [titleError, setTitleError] = useState(false);
+  const [bodyError, setBodyError] = useState(false);
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const currentTitle = e.target.value;
+    setTitle(currentTitle);
+    currentTitle.length < 5 ? setTitleError(true) : setTitleError(false);
+  };
+
+  const handleBodyChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const currentBody = e.target.value;
+    setBody(currentBody);
+    currentBody.length < 8 ? setBodyError(true) : setBodyError(false);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     try {
@@ -32,18 +46,16 @@ const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
         id="standard-basic"
         label="Title"
         fullWidth
-        onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-          setTitle(e.target.value)
-        }
+        error={titleError}
+        onChange={handleTitleChange}
       />
       <br />
       <TextField
         id="standard-basic"
         label="Body"
         fullWidth
-        onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-          setBody(e.target.value)
-        }
+        error={bodyError}
+        onChange={handleBodyChange}
       />
       <RightFlex>
         <Button
@@ -51,6 +63,9 @@ const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
           endIcon={<Icon>send</Icon>}
           type="submit"
           color="primary"
+          disabled={
+            titleError || bodyError || title.length === 0 || body.length === 0
+          }
         >
           Send
         </Button>
