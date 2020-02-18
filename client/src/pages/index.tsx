@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import WithLayout from '../components/templates/Layout';
+import WithLayout from '../components/templates/WithLayout';
 import PostForm from '../components/posts/PostForm';
 import AppContext from '../contexts';
 import { fetchPostAPI } from '../api/posts';
