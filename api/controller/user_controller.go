@@ -34,7 +34,8 @@ func (pc UserController) Create(c *gin.Context) {
 }
 
 func (pc UserController) Show(c *gin.Context) {
-	uid := c.Params.ByName("uid")
+	uid := c.Params.ByName("id")
+	fmt.Println("uid: ", uid)
 	var s service.UserService
 	u, err := s.GetByUid(uid)
 

@@ -40,7 +40,7 @@ func (s UserService) GetByUid(uid string) (User, error) {
 	db := db.GetDB()
 	var u User
 
-	if err := db.Where("uid = ?", uid).Error; err != nil {
+	if err := db.Where("uid = ?", uid).First(&u).Error; err != nil {
 		return u, err
 	}
 

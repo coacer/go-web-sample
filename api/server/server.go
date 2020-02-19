@@ -29,5 +29,13 @@ func router() *gin.Engine {
 		p.DELETE("/:id", ctrl.Delete)
 	}
 
+	u := r.Group("/users")
+	{
+		ctrl := controller.UserController{}
+		u.GET("", ctrl.Index)
+		u.GET("/:id", ctrl.Show)
+		u.POST("", ctrl.Create)
+	}
+
 	return r
 }
