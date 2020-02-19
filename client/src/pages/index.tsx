@@ -57,8 +57,8 @@ const Index = (): JSX.Element => {
 
 const BtnWrapper = styled.div`
   position: fixed;
-  top: 50px;
-  left: 50px;
+  top: 100px;
+  left: 100px;
 `;
 
 const FormWrapper = styled.div`
