@@ -1,4 +1,5 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { TextField, Button, Card } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
@@ -7,6 +8,8 @@ import { createUserFb } from '../../api/firebase';
 import { addUserAPI } from '../../api/users';
 
 const Signup: React.FC = () => {
+  const router = useRouter();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,27 +49,20 @@ const Signup: React.FC = () => {
       : setPasswordConfirmError(false);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (password !== passwordConfirm) {
       return;
     }
 
-    createUserFb(email, password)
-      .then(res => {
-        addUserAPI({
-          uid: res.user.uid,
-          name,
-          email,
-        })
-          .then(res => {
-            console.log(res);
-          })
-          .catch(e => console.log(e));
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    try {
+      const { user } = await createUserFb(email, password);
+      const data = await addUserAPI({ uid: user.uid, name, email });
+      console.log(data);
+      router.push('/');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
