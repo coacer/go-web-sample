@@ -8,11 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Service struct{}
+type PostService struct{}
 
 type Post entity.Post
 
-func (s Service) GetAll() ([]Post, error) {
+func (s PostService) GetAll() ([]Post, error) {
 	db := db.GetDB()
 	var p []Post
 
@@ -23,7 +23,7 @@ func (s Service) GetAll() ([]Post, error) {
 	return p, nil
 }
 
-func (s Service) CreateModel(c *gin.Context) (Post, error) {
+func (s PostService) CreateModel(c *gin.Context) (Post, error) {
 	db := db.GetDB()
 	var p Post
 
@@ -39,7 +39,7 @@ func (s Service) CreateModel(c *gin.Context) (Post, error) {
 	return p, nil
 }
 
-func (s Service) GetByID(id string) (Post, error) {
+func (s PostService) GetByID(id string) (Post, error) {
 	db := db.GetDB()
 	var p Post
 
@@ -50,7 +50,7 @@ func (s Service) GetByID(id string) (Post, error) {
 	return p, nil
 }
 
-func (s Service) UpdateByID(id string, c *gin.Context) (Post, error) {
+func (s PostService) UpdateByID(id string, c *gin.Context) (Post, error) {
 	db := db.GetDB()
 	var p Post
 
@@ -67,7 +67,7 @@ func (s Service) UpdateByID(id string, c *gin.Context) (Post, error) {
 	return p, nil
 }
 
-func (s Service) DeleteByID(id string) error {
+func (s PostService) DeleteByID(id string) error {
 	db := db.GetDB()
 	var p Post
 

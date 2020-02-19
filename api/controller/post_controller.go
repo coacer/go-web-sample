@@ -7,10 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Controller struct{}
+type PostController struct{}
 
-func (pc Controller) Index(c *gin.Context) {
-	var s service.Service
+func (pc PostController) Index(c *gin.Context) {
+	var s service.PostService
 	p, err := s.GetAll()
 
 	if err != nil {
@@ -21,8 +21,8 @@ func (pc Controller) Index(c *gin.Context) {
 	}
 }
 
-func (pc Controller) Create(c *gin.Context) {
-	var s service.Service
+func (pc PostController) Create(c *gin.Context) {
+	var s service.PostService
 	p, err := s.CreateModel(c)
 
 	if err != nil {
@@ -33,9 +33,9 @@ func (pc Controller) Create(c *gin.Context) {
 	}
 }
 
-func (pc Controller) Show(c *gin.Context) {
+func (pc PostController) Show(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var s service.Service
+	var s service.PostService
 	p, err := s.GetByID(id)
 
 	if err != nil {
@@ -46,9 +46,9 @@ func (pc Controller) Show(c *gin.Context) {
 	}
 }
 
-func (pc Controller) Update(c *gin.Context) {
+func (pc PostController) Update(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var s service.Service
+	var s service.PostService
 	p, err := s.UpdateByID(id, c)
 
 	if err != nil {
@@ -59,9 +59,9 @@ func (pc Controller) Update(c *gin.Context) {
 	}
 }
 
-func (pc Controller) Delete(c *gin.Context) {
+func (pc PostController) Delete(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var s service.Service
+	var s service.PostService
 
 	if err := s.DeleteByID(id); err != nil {
 		c.AbortWithStatus(403)
