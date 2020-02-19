@@ -5,3 +5,9 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface User {
+  uid: string;
+  name: string;
+  email: string;
+}

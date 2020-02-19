@@ -4,25 +4,34 @@ import { TextField, Button, Card } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import WithLayout from '../../components/templates/WithLayout';
 import { createUserFb } from '../../api/firebase';
+import { addUserAPI } from '../../api/users';
 
 const Signup: React.FC = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
 
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const currentName = e.target.value;
+    setName(currentName);
+    currentName.length <= 0 ? setNameError(true) : setNameError(false);
+  };
+
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const currentEmail = e.target.value;
     setEmail(currentEmail);
-    currentEmail.length < 15 ? setEmailError(true) : setEmailError(false);
+    currentEmail.length < 10 ? setEmailError(true) : setEmailError(false);
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const currentPassword = e.target.value;
     setPassword(currentPassword);
-    currentPassword.length < 9
+    currentPassword.length < 6
       ? setPasswordError(true)
       : setPasswordError(false);
   };
@@ -32,7 +41,7 @@ const Signup: React.FC = () => {
   ): void => {
     const currentPasswordConfirm = e.target.value;
     setPasswordConfirm(currentPasswordConfirm);
-    currentPasswordConfirm.length < 9
+    currentPasswordConfirm.length < 6
       ? setPasswordConfirmError(true)
       : setPasswordConfirmError(false);
   };
@@ -45,7 +54,15 @@ const Signup: React.FC = () => {
 
     createUserFb(email, password)
       .then(res => {
-        console.log(res.user);
+        addUserAPI({
+          uid: res.user.uid,
+          name,
+          email,
+        })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(e => console.log(e));
       })
       .catch(e => {
         console.log(e);
@@ -56,6 +73,14 @@ const Signup: React.FC = () => {
     <FlexCard>
       <h3>Sign up</h3>
       <form onSubmit={handleSubmit}>
+        <TextField
+          id="standard-basic"
+          label="Name"
+          fullWidth
+          error={nameError}
+          onChange={handleNameChange}
+        />
+        <br />
         <TextField
           id="standard-basic"
           label="Email"
@@ -88,9 +113,11 @@ const Signup: React.FC = () => {
             type="submit"
             color="primary"
             disabled={
+              nameError ||
               emailError ||
               passwordError ||
               passwordConfirmError ||
+              name.length === 0 ||
               email.length === 0 ||
               password.length === 0 ||
               passwordConfirm.length === 0
