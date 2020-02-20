@@ -18,6 +18,7 @@ const Signup: React.FC = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const currentName = e.target.value;
@@ -61,13 +62,16 @@ const Signup: React.FC = () => {
       console.log(data);
       router.push('/');
     } catch (e) {
-      console.log(e);
+      setErrorMessage('このメールアドレスは既にあるぞ');
+      setPassword('');
+      setPasswordConfirm('');
     }
   };
 
   return (
     <FlexCard>
       <h3>Sign up</h3>
+      <p style={{ color: '#f00' }}>{errorMessage}</p>
       <form onSubmit={handleSubmit}>
         <TextField
           id="standard-basic"
@@ -90,6 +94,7 @@ const Signup: React.FC = () => {
           label="Password"
           type="password"
           fullWidth
+          value={password}
           error={passwordError}
           onChange={handlePasswordChange}
         />
@@ -99,6 +104,7 @@ const Signup: React.FC = () => {
           label="Password Confirmation"
           type="password"
           fullWidth
+          value={passwordConfirm}
           error={passwordConfirmError}
           onChange={handlePasswordConfirmChange}
         />
