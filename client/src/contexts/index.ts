@@ -1,12 +1,22 @@
 import { createContext, Context, Dispatch } from 'react';
-import { Post } from '../interfaces';
+import { Post, User } from '../interfaces';
 import { PostAction } from '../store/actions/posts';
 
-interface PostsContext {
+interface PostsContextType {
   posts: Post[];
   dispatch: Dispatch<PostAction>;
 }
 
-export const PostsContext: Context<PostsContext> = createContext(
-  {} as PostsContext
+interface CurrentUserContextType {
+  currentUser: User;
+  dispatch: Dispatch<UserAction>;
+}
+
+export const PostsContext: Context<PostsContextType> = createContext(
+  {} as PostsContextType
 );
+
+export const CurrentUserContext: Context<CurrentUserContextType> = createContext(
+  {} as CurrentUserContextType
+);
+
