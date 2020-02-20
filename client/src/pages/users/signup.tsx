@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent, useContext } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { TextField, Button, Card } from '@material-ui/core';
@@ -6,9 +6,12 @@ import Icon from '@material-ui/core/Icon';
 import WithLayout from '../../components/templates/WithLayout';
 import { createUserFb } from '../../api/firebase';
 import { addUserAPI } from '../../api/users';
+import { CurrentUserContext } from '../../contexts';
+import { setCurrentUser } from '../../store/actions/current_user';
 
 const Signup: React.FC = () => {
   const router = useRouter();
+  const { currentUserDispatch: dispatch } = useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -59,8 +62,10 @@ const Signup: React.FC = () => {
     try {
       const { user } = await createUserFb(email, password);
       const data = await addUserAPI({ uid: user.uid, name, email });
-      console.log(data);
-      router.push('/');
+      dispatch(setCurrentUser(data));
+      setTimeout(() => {
+        router.push('/');
+      }, 1000);
     } catch (e) {
       setErrorMessage('このメールアドレスは既にあるぞ');
       setPassword('');

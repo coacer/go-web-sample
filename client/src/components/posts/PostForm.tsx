@@ -11,7 +11,7 @@ interface Props {
 }
 
 const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
-  const { dispatch } = useContext(PostsContext);
+  const { postsDispatch } = useContext(PostsContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -33,7 +33,7 @@ const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
     try {
       e.preventDefault();
       const post = await addPostAPI({ title, body });
-      dispatch(addPost(post));
+      postsDispatch(addPost(post));
       handleClose();
     } catch (e) {
       console.log(e);

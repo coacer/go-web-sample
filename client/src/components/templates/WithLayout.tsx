@@ -1,13 +1,18 @@
 import React, { useReducer } from 'react';
 import Head from 'next/head';
-import { PostsContext } from '../../contexts';
-import reducer from '../../store/reducers/posts';
+import { PostsContext, CurrentUserContext } from '../../contexts';
+import postsReducer from '../../store/reducers/posts';
+import currentUserReducer from '../../store/reducers/current_user';
 import Header from '../organisms/Header';
 import styled from 'styled-components';
 
 const WithLayout = (Page: React.FC): React.FC => {
   return function Layout() {
-    const [posts, dispatch] = useReducer(reducer, []);
+    const [posts, postsDispatch] = useReducer(postsReducer, []);
+    const [currentUser, currentUserDispatch] = useReducer(
+      currentUserReducer,
+      null
+    );
     return (
       <>
         <Head>
@@ -17,11 +22,15 @@ const WithLayout = (Page: React.FC): React.FC => {
           />
         </Head>
         <Header />
-        <PostsContext.Provider value={{ posts, dispatch }}>
-          <Container>
-            <Page />
-          </Container>
-        </PostsContext.Provider>
+        <CurrentUserContext.Provider
+          value={{ currentUser, currentUserDispatch }}
+        >
+          <PostsContext.Provider value={{ posts, postsDispatch }}>
+            <Container>
+              <Page />
+            </Container>
+          </PostsContext.Provider>
+        </CurrentUserContext.Provider>
       </>
     );
   };

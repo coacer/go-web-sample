@@ -17,7 +17,7 @@ interface Props {
 export type PostListItemProps = Props;
 
 const PostListItem: React.FC<Props> = ({ post }: Props) => {
-  const { dispatch } = useContext(PostsContext);
+  const { postsDispatch } = useContext(PostsContext);
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = (): void => setOpenModal(true);
@@ -25,7 +25,7 @@ const PostListItem: React.FC<Props> = ({ post }: Props) => {
 
   const handleClick = (id: number): void => {
     deletePostAPI(id)
-      .then(res => dispatch(deletePost(id)))
+      .then(res => postsDispatch(deletePost(id)))
       .catch(e => console.log(e));
   };
 
