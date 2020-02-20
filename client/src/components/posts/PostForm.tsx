@@ -1,5 +1,5 @@
 import React, { useContext, useState, FormEvent, ChangeEvent } from 'react';
-import AppContext from '../../contexts';
+import { PostsContext } from '../../contexts';
 import { addPost } from '../../store/actions/posts';
 import { addPostAPI } from '../../api/posts';
 import { TextField, Button } from '@material-ui/core';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const PostForm: React.FC<Props> = ({ handleClose }: Props) => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(PostsContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [titleError, setTitleError] = useState(false);

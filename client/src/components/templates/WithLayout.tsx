@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import Head from 'next/head';
-import AppContext from '../../contexts';
+import { PostsContext } from '../../contexts';
 import reducer from '../../store/reducers/posts';
 import Header from '../organisms/Header';
 import styled from 'styled-components';
@@ -17,11 +17,11 @@ const WithLayout = (Page: React.FC): React.FC => {
           />
         </Head>
         <Header />
-        <AppContext.Provider value={{ posts, dispatch }}>
+        <PostsContext.Provider value={{ posts, dispatch }}>
           <Container>
             <Page />
           </Container>
-        </AppContext.Provider>
+        </PostsContext.Provider>
       </>
     );
   };

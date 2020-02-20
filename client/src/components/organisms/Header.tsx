@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import styled from 'styled-components';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,16 +41,23 @@ const Header: React.FC = () => {
           <Typography variant="h6" className={classes.title}>
             Post App
           </Typography>
-          <Link href="/">
-            <Button color="inherit">TOP</Button>
-          </Link>
-          <Link href="/users/signup">
-            <Button color="inherit">Sign up</Button>
-          </Link>
+          <RightFlex>
+            <Link href="/">
+              <Button color="inherit">TOP</Button>
+            </Link>
+            <Link href="/users/signup">
+              <Button color="inherit">Sign up</Button>
+            </Link>
+          </RightFlex>
         </Toolbar>
       </AppBar>
     </div>
   );
 };
+
+const RightFlex = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 export default Header;

@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import PostListItem from './PostListItem';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
-import AppContext from '../../contexts';
+import { PostsContext } from '../../contexts';
 
 const PostList: React.FC = () => {
-  const { posts } = useContext(AppContext);
+  const { posts } = useContext(PostsContext);
 
   return (
     <FadeWrapper>

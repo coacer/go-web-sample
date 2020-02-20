@@ -7,6 +7,6 @@ interface PostsContext {
   dispatch: Dispatch<PostAction>;
 }
 
-const AppContext: Context<PostsContext> = createContext({} as PostsContext);
-
-export default AppContext;
+export const PostsContext: Context<PostsContext> = createContext(
+  {} as PostsContext
+);

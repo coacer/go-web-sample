@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import AppContext from '../../contexts';
+import { PostsContext } from '../../contexts';
 import { Post } from '../../interfaces';
 import SimpleCard from '../atoms/SimpleCard';
 import styled from 'styled-components';
@@ -17,7 +17,7 @@ interface Props {
 export type PostListItemProps = Props;
 
 const PostListItem: React.FC<Props> = ({ post }: Props) => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(PostsContext);
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = (): void => setOpenModal(true);

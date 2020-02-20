@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import WithLayout from '../components/templates/WithLayout';
 import PostForm from '../components/posts/PostForm';
-import AppContext from '../contexts';
+import { PostsContext } from '../contexts';
 import { fetchPostAPI } from '../api/posts';
 import { reloadPost } from '../store/actions/posts';
 import PostList from '../components/posts/PostList';
@@ -10,7 +10,7 @@ import IconBtn from '../components/atoms/IconBtn';
 import TransitionsModal from '../components/atoms/TransitionsModal';
 
 const Index = (): JSX.Element => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(PostsContext);
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = (): void => {
